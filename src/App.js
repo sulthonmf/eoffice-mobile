@@ -50,7 +50,7 @@ export default function() {
 
   return (
     <ThemeContext.Provider value={switchTheme,MyTheme}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar backgroundColor={isDarkMode ? 'white' : 'black'} barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <AuthContext.Provider value={auth}>
         <NavigationContainer theme={isDarkMode ? darkTheme : lightTheme}>
           <RootStack.Navigator

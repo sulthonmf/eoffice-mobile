@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Text, Image, StyleSheet} from 'react-native';
+import Logo from '../img/jastan.png';
 
 import {Heading} from '../components/Heading';
 import {Input} from '../components/Input';
@@ -9,6 +10,7 @@ import {Error} from '../components/Error';
 import {AuthContainer} from '../components/AuthContainer';
 import {AuthContext} from '../contexts/AuthContext';
 import {Loading} from '../components/Loading';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function LoginScreen({navigation}) {
   const {login} = React.useContext(AuthContext);
@@ -19,7 +21,7 @@ export function LoginScreen({navigation}) {
 
   return (
     <AuthContainer>
-      <Heading style={styles.title}>LOGIN</Heading>
+      <Image style={styles.logo} source={Logo}/>
       <Error error={error} />
       <Input
         style={styles.input}
@@ -48,6 +50,9 @@ export function LoginScreen({navigation}) {
           }
         }}
       />
+      <TouchableOpacity>
+        <Text>Forgot Password?</Text>
+      </TouchableOpacity>
       {/* <TextButton
         title={'Have u an account? Create one'}
         onPress={() => {
@@ -60,8 +65,10 @@ export function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  title: {
+  logo: {
     marginBottom: 48,
+    width: 200, 
+    height: 50
   },
   input: {
     marginVertical: 8,

@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   detailButton: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: '#484848',
     borderRadius: 10,
     width: 200,
-    height: 30,
+    height: 25,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
