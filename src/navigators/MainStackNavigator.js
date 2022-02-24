@@ -6,6 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ActivityScreen } from '../screens/ActivityScreen';
 import AddActivity from '../screens/AddActivity';
+import UpdateActivity from '../screens/UpdateActivity';
 
 const TabStack = createMaterialBottomTabNavigator();
 const MainStack = createStackNavigator();
@@ -26,6 +27,14 @@ function HomeStack(){
         component={AddActivity}
         options={{
           title: 'addActivity',
+          headerShown: false,
+        }}
+      />
+      <MainStack.Screen
+        name="updateActivity"
+        component={UpdateActivity}
+        options={{
+          title: 'updateActivity',
           headerShown: false,
         }}
       />

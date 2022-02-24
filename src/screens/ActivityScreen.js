@@ -69,7 +69,7 @@ export function ActivityScreen({navigation}) {
         {logbookData.map(logbook => {
           return (
             <ActivityCard
-              onPress={() => navigation.navigate('addActivity', {
+              onPress={() => navigation.navigate('updateActivity', {
                 itemId: logbook.id
               })}
               key={logbook.id}
