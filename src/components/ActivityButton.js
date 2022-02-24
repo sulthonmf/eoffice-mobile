@@ -2,11 +2,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export default function ActivityButton({counter, status, icon}) {
+export default function ActivityButton({counter, status, icon, color}) {
   return (
     <View>
-      <TouchableOpacity style={styles.buttonWrap}>
-          <View style={styles.buttonContent}>
+      <TouchableOpacity style={[styles.buttonWrap, {backgroundColor: color}]}>
+          <View style={[styles.buttonContent]}>
             <MaterialIcons name={icon} color="white" size={26}/>
             <Text style={{color: 'white'}}>{counter}</Text>
             <Text style={{color: 'white'}}>{status}</Text>
@@ -18,7 +18,6 @@ export default function ActivityButton({counter, status, icon}) {
 
 const styles = StyleSheet.create({
     buttonWrap: {
-        backgroundColor: '#3A66FF',
         borderRadius: 5,
         width: 100,
         height: 100,
@@ -33,6 +32,6 @@ const styles = StyleSheet.create({
     },
     buttonContent: {
         alignItems: 'center',
-        justifyContent: 'center'
+        //justifyContent: 'center'
     }
 })

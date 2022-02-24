@@ -10,10 +10,12 @@ import { useProfile } from '../hooks/useProfile';
 import { BASE_URL } from '../config';
 import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
+import { Loading } from '../components/Loading';
 
 export function Profile({navigation}) {
     const {logout} = React.useContext(AuthContext);
     const {token} = React.useContext(UserContext);
+    const [loading, setLoading] = React.useState(true)
     // console.log(token)
     const [users, setUsers] = useState({});
     // const responseJson = useProfile('/apptest/api/user')
@@ -29,6 +31,7 @@ export function Profile({navigation}) {
             .then(response => {
                 //console.log(response)
                 setUsers(response.data)
+                setLoading(false)
             })
     }, [])
   return (
@@ -61,6 +64,7 @@ export function Profile({navigation}) {
             }}
       />
       </ScrollView>
+      <Loading loading={loading} />
     </ProfileContainer>
   );
 }

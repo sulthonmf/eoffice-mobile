@@ -5,22 +5,46 @@ import {Profile} from '../screens/Profile';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ActivityScreen } from '../screens/ActivityScreen';
+import AddActivity from '../screens/AddActivity';
 
-const Tab = createMaterialBottomTabNavigator();
+const TabStack = createMaterialBottomTabNavigator();
 const MainStack = createStackNavigator();
 
-export function MainStackNavigator() {
+function HomeStack(){
   return (
-    <Tab.Navigator activeColor='#3A66FF' barStyle={{backgroundColor: '#ffffff'}}>
-      <Tab.Screen
-        name={'Home'}
+    <MainStack.Navigator>
+      <MainStack.Screen
+        name="Home"
+        component={Tab}
+        options={{
+          title: 'Home',
+          headerShown: false,
+        }}
+      />
+      <MainStack.Screen
+        name="addActivity"
+        component={AddActivity}
+        options={{
+          title: 'addActivity',
+          headerShown: false,
+        }}
+      />
+    </MainStack.Navigator>
+  )
+}
+
+function Tab(){
+  return (
+    <TabStack.Navigator activeColor='#3A66FF' barStyle={{backgroundColor: '#ffffff'}}>
+      <TabStack.Screen
+        name={'Dashboard'}
         component={HomeScreen}
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="home" color={color} size={26}/>)
         }}
       />
-      <Tab.Screen
+      <TabStack.Screen
         name={'Activity'}
         component={ActivityScreen}
         options={{
@@ -28,7 +52,7 @@ export function MainStackNavigator() {
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="text-box" color={color} size={24}/>)
         }}
       />
-      <Tab.Screen
+      <TabStack.Screen
         name={'Profile'}
         component={Profile}
         options={{
@@ -36,6 +60,12 @@ export function MainStackNavigator() {
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account" color={color} size={26}/>)
         }}
       />
-    </Tab.Navigator>
+    </TabStack.Navigator>
+  )
+}
+
+export function MainStackNavigator() {
+  return (
+    <HomeStack />
   );
 }

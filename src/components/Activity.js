@@ -1,29 +1,62 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import React, {useContext, useState, useEffect} from 'react';
 import ActivityButton from './ActivityButton';
-import MaterialIcon from 'react-native-vector-icons/AntDesign';
+import {UserContext} from '../contexts/UserContext';
+import axios from 'axios';
+import {BASE_URL} from '../config';
 
 export function Activity() {
+  const {token} = useContext(UserContext);
+  const [pending, setPending] = useState(0);
+  const [done, setDone] = useState(0);
+  const [decline, setDecline] = useState(0);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     axios
+  //       .get(`${BASE_URL}/apptest/api/logbook`, {
+  //         headers: {
+  //           Accept: 'application/json',
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //       .then(response => {
+  //         //console.log(response);
+  //         //setLogbookData(response.data);
+  //         //etLoading(false);
+  //         if (response.status === 200) {
+  //           for (var i = 0; i < response.data.approved; i++) {
+            
+  //           }
+  //         }
+  //       })
+  //       .catch(error => console.log(error));
+  //   }, 2000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
     <View>
       <Text style={styles.titleText}>Logbook Activities</Text>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <ActivityButton
           icon="pending-actions"
-          counter="2"
+          counter={pending}
           status="On Pending"
+          color="#FF993A"
         />
-        <ActivityButton icon="done" counter="0" status="Done" />
-        <ActivityButton icon="cancel" counter="0" status="Decline" />
-      </View>
-      <View style={styles.buttonWrapper}>
-      <TouchableOpacity >
-        <View style={styles.detailButton}>
-          <Text style={{alignSelf: 'center', marginRight: 2}}>Tap to view detail</Text>
-          <MaterialIcon name="arrowright" color="#484848" size={20}/>
-        </View>
-      </TouchableOpacity>
+        <ActivityButton
+          icon="done"
+          counter={done}
+          status="Done"
+          color="#65BF8C"
+        />
+        <ActivityButton
+          icon="cancel"
+          counter={decline}
+          status="Decline"
+          color="#FF3A3A"
+        />
       </View>
     </View>
   );
@@ -42,10 +75,10 @@ const styles = StyleSheet.create({
     height: 25,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonWrapper: {
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

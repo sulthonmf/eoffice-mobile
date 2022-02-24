@@ -9,8 +9,8 @@ export function Loading({loading}) {
   return (
     <View style={styles.overlay}>
       <View style={styles.container}>
-        <ActivityIndicator color={'black'} />
-        <Text style={styles.text}>Loading...</Text>
+        <ActivityIndicator color={'blue'} />
+        <Text style={styles.text}>Loading</Text>
       </View>
     </View>
   );

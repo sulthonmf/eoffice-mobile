@@ -12,6 +12,7 @@ import {SplashScreen} from './screens/SplashScreen';
 import {darkTheme} from './themes/dark';
 import {ThemeContext} from './contexts/ThemeContext';
 import {StatusBar} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 // import {useDarkMode} from 'react-native-dark-mode';
 
 const RootStack = createStackNavigator();
@@ -23,7 +24,7 @@ const MyTheme = {
   },
 };
 
-export default function() {
+export default function () {
   const {auth, state} = useAuth();
   // const isDarkMode = useDarkMode();
   const [isDarkMode, setIsDarkMode] = React.useState(false);
@@ -49,18 +50,23 @@ export default function() {
   }
 
   return (
-    <ThemeContext.Provider value={switchTheme,MyTheme}>
-      <StatusBar backgroundColor={isDarkMode ? 'white' : 'black'} barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+    <ThemeContext.Provider value={(switchTheme, MyTheme)}>
+      <StatusBar
+        backgroundColor={isDarkMode ? 'white' : 'black'}
+        barStyle={isDarkMode ? 'dark-content' : 'light-content'}
+      />
       <AuthContext.Provider value={auth}>
-        <NavigationContainer theme={isDarkMode ? darkTheme : lightTheme}>
-          <RootStack.Navigator
-            screenOptions={{
-              headerShown: false,
-              animationEnabled: false,
-            }}>
-            {renderScreens()}
-          </RootStack.Navigator>
-        </NavigationContainer>
+        <PaperProvider>
+          <NavigationContainer theme={isDarkMode ? darkTheme : lightTheme}>
+            <RootStack.Navigator
+              screenOptions={{
+                headerShown: false,
+                animationEnabled: false,
+              }}>
+              {renderScreens()}
+            </RootStack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
       </AuthContext.Provider>
     </ThemeContext.Provider>
   );
