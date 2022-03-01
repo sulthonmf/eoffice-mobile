@@ -5,6 +5,7 @@ import {
   Pressable,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import {UserContext} from '../contexts/UserContext';
@@ -35,12 +36,12 @@ export default function UpdateActivity({route, navigation}) {
   const [iconButton, setIconButton] = useState('attachment');
 
   const [subject, setSubject] = useState('');
-  const [status, setStatus] = useState('');
+  //const [status, setStatus] = useState('');
   const [selectedStatus, setSelectedStatus] = useState({});
   const [output, setOutput] = useState('');
   const [subjectType, setSubjectType] = useState('');
   const [detailSubject, setDetailSubject] = useState('');
-  const [attachFile, setAttachFile] = useState({});
+  //const [attachFile, setAttachFile] = useState({});
 
   const [multipleFile, setMultipleFile] = useState([]);
 
@@ -107,7 +108,7 @@ export default function UpdateActivity({route, navigation}) {
         // }
         //Setting the state to show multiple file attributes
         setMultipleFile(results);
-        console.log(multipleFile)
+        console.log(multipleFile);
         setButton('Remove');
         setIconButton('delete');
       } catch (err) {
@@ -134,7 +135,6 @@ export default function UpdateActivity({route, navigation}) {
   };
   //console.log(subjectData);
   //console.log(selectedStatus)
-  
 
   //const cdate = JSON.stringify(logbookData.created_at).substring(1, 11);
 
@@ -143,7 +143,29 @@ export default function UpdateActivity({route, navigation}) {
     const file = new FormData();
     file.append('featured_file', fileToUpload);
     console.log(file);
-  }
+    // const data = {
+    //   type_job_id: subjectType,
+    //   subject,
+    //   content: detailSubject,
+    //   status: selectedStatus,
+    //   output,
+    //   featured_file: file,
+    // };
+    // try {
+    //   axios
+    //     .post(`${BASE_URL}/apptest/api/logbook/update/${itemId}`, data, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     })
+    //     .then(response => {
+    //       console.log(response.data);
+    //     });
+    // } catch (error) {
+    //   Alert('Gagal update data');
+    // }
+  };
 
   return (
     <HomeContainer>
@@ -230,14 +252,11 @@ export default function UpdateActivity({route, navigation}) {
           style={{borderRadius: 10, backgroundColor: '#EBEBEB'}}
           ref={pickerRef}
           selectedValue={selectedStatus}
-          onValueChange={(itemValue) =>
-            setSelectedStatus(itemValue) &
-            console.log(itemValue)
+          onValueChange={itemValue =>
+            setSelectedStatus(itemValue) & console.log(itemValue)
           }>
-          {Object.values(statusLog).map((value) => {
-            return (
-              <Picker.Item label={value} value={value} key={value} />
-            );
+          {Object.values(statusLog).map(value => {
+            return <Picker.Item label={value} value={value} key={value} />;
           })}
         </Picker>
         <FormInput
