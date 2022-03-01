@@ -53,7 +53,7 @@ export function Profile({navigation}) {
         <TextButton
           title={'Change Password'}
           onPress={() => {
-            navigation.navigate('Registration');
+            navigation.navigate('resetPassword');
           }}
         />
         <FilledButton

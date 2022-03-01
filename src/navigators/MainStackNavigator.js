@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { ActivityScreen } from '../screens/ActivityScreen';
 import AddActivity from '../screens/AddActivity';
 import UpdateActivity from '../screens/UpdateActivity';
+import ResetPassword from '../screens/ResetPassword';
 
 const TabStack = createMaterialBottomTabNavigator();
 const MainStack = createStackNavigator();
@@ -35,6 +36,14 @@ function HomeStack(){
         component={UpdateActivity}
         options={{
           title: 'updateActivity',
+          headerShown: false,
+        }}
+      />
+      <MainStack.Screen
+        name="resetPassword"
+        component={ResetPassword}
+        options={{
+          title: 'resetPassword',
           headerShown: false,
         }}
       />

@@ -11,9 +11,8 @@ import {UserContext} from '../contexts/UserContext';
 import {Error} from '../components/Error';
 import {Picker} from '@react-native-picker/picker';
 
-export default function AddActivity({route, navigation}) {
+export default function AddActivity({navigation}) {
   const {token} = useContext(UserContext);
-  const {itemId} = route.params;
   const [button, setButton] = useState('SAVE');
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState('');
@@ -34,8 +33,6 @@ export default function AddActivity({route, navigation}) {
     pickerRef.current.blur();
   }
   
-  console.log(itemId)
-
   useEffect(() => {
     axios
       .get(`${BASE_URL}/apptest/api/logbook/job`, {

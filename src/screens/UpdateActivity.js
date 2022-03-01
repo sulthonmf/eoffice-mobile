@@ -46,7 +46,7 @@ export default function UpdateActivity({route, navigation}) {
 
   const pickerRef = useRef();
 
-  const statusLog = {1: 'Pending', 2: 'Hold', 3: 'Done'};
+  const statusLog = ['Pending', 'Hold', 'Finish'];
   //console.log(itemId)
 
   const getData = () => {
@@ -97,16 +97,17 @@ export default function UpdateActivity({route, navigation}) {
           type: [DocumentPicker.types.allFiles],
           //There can me more options as well find above
         });
-        for (const res of results) {
-          //Printing the log realted to the file
-          console.log('res : ' + JSON.stringify(res));
-          console.log('URI : ' + res.uri);
-          console.log('Type : ' + res.type);
-          console.log('File Name : ' + res.name);
-          console.log('File Size : ' + res.size);
-        }
+        // for (const res of results) {
+        //   //Printing the log realted to the file
+        //   console.log('res : ' + JSON.stringify(res));
+        //   console.log('URI : ' + res.uri);
+        //   console.log('Type : ' + res.type);
+        //   console.log('File Name : ' + res.name);
+        //   console.log('File Size : ' + res.size);
+        // }
         //Setting the state to show multiple file attributes
         setMultipleFile(results);
+        console.log(multipleFile)
         setButton('Remove');
         setIconButton('delete');
       } catch (err) {
@@ -132,9 +133,17 @@ export default function UpdateActivity({route, navigation}) {
     setMultipleFile([]);
   };
   //console.log(subjectData);
-  console.log(selectedStatus)
+  //console.log(selectedStatus)
+  
 
   //const cdate = JSON.stringify(logbookData.created_at).substring(1, 11);
+
+  const submitData = () => {
+    const fileToUpload = multipleFile;
+    const file = new FormData();
+    file.append('featured_file', fileToUpload);
+    console.log(file);
+  }
 
   return (
     <HomeContainer>
@@ -276,6 +285,7 @@ export default function UpdateActivity({route, navigation}) {
           }}>
           <Error error={error} />
           <Button
+            onPress={submitData}
             style={{marginHorizontal: 5}}
             mode="contained"
             color="#0038FF">
