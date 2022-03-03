@@ -5,7 +5,7 @@ import {TextInput} from 'react-native-paper';
 export default function FormInput({
   titleInput,
   placeholder,
-  height,
+  //height,
   value,
   onChangeText,
   editable,
@@ -22,7 +22,7 @@ export default function FormInput({
         disable={editable}
         value={value}
         onChangeText={onChangeText}
-        multiline={true}
+        //multiline={true}
         placeholder={placeholder}
         style={{backgroundColor: '#EBEBEB', textAlignVertical: 'center'}}
       />

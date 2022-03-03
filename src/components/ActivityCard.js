@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
   activityTitle: {
     fontSize: 15,
     color: 'black',
-    fontWeight: '200'
+    fontWeight: '600'
   }
 });

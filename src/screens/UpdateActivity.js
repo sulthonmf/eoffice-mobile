@@ -29,19 +29,21 @@ export default function UpdateActivity({route, navigation}) {
   const [visible, setVisible] = useState(false);
   const [logbookData, setLogbookData] = useState({});
   const [subjectData, setSubjectData] = useState({});
-  const [selectedSubject, setSelectedSubject] = useState();
+
   const [cdate, setCdate] = useState('');
   const [error, setError] = useState('');
   const [button, setButton] = useState('Attach');
   const [iconButton, setIconButton] = useState('attachment');
 
-  const [subject, setSubject] = useState('');
   //const [status, setStatus] = useState('');
+  //const [attachFile, setAttachFile] = useState({});
+  //Data Objek
+  const [subject, setSubject] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState();
   const [selectedStatus, setSelectedStatus] = useState({});
   const [output, setOutput] = useState('');
   const [subjectType, setSubjectType] = useState('');
   const [detailSubject, setDetailSubject] = useState('');
-  //const [attachFile, setAttachFile] = useState({});
 
   const [multipleFile, setMultipleFile] = useState([]);
 
@@ -62,6 +64,10 @@ export default function UpdateActivity({route, navigation}) {
         .then(response => {
           //console.log(response.data);
           setLogbookData(response.data.log);
+          setSubject(response.data.log.subject);
+          setSelectedSubject(response.data.log.type_job_id);
+          setDetailSubject(response.data.log.content);
+          setOutput(response.data.log.output);
           setCdate(response.data.log.created_at.substring(0, 10));
           setSelectedStatus(response.data.log.status);
           setLoading(false);
@@ -130,41 +136,37 @@ export default function UpdateActivity({route, navigation}) {
     }
   };
 
-  const removeAttach = () => {
-    setMultipleFile([]);
-  };
-  //console.log(subjectData);
-  //console.log(selectedStatus)
-
-  //const cdate = JSON.stringify(logbookData.created_at).substring(1, 11);
-
   const submitData = () => {
     const fileToUpload = multipleFile;
     const file = new FormData();
-    file.append('featured_file', fileToUpload);
-    console.log(file);
-    // const data = {
-    //   type_job_id: subjectType,
-    //   subject,
-    //   content: detailSubject,
-    //   status: selectedStatus,
-    //   output,
-    //   featured_file: file,
-    // };
-    // try {
-    //   axios
-    //     .post(`${BASE_URL}/apptest/api/logbook/update/${itemId}`, data, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     })
-    //     .then(response => {
-    //       console.log(response.data);
-    //     });
-    // } catch (error) {
-    //   Alert('Gagal update data');
-    // }
+    fileToUpload.forEach((item, i) => {
+      file.append(fileToUpload);
+    });
+    //file.append('file_description', 'name');
+    console.log(fileToUpload);
+    const data = {
+      type_job_id: subjectType,
+      subject,
+      content: detailSubject,
+      status: selectedStatus,
+      output,
+      'featured_file[]': file,
+    };
+    console.log(data);
+    try {
+      axios
+        .post(`${BASE_URL}/apptest/api/logbook/update/${itemId}`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+        });
+    } catch (error) {
+      Alert('Gagal update data');
+    }
   };
 
   return (
@@ -225,18 +227,16 @@ export default function UpdateActivity({route, navigation}) {
           Create Date: {cdate}
         </Text>
         <FormInput
-          editable={true}
+          editable={false}
           titleInput={'Subject'}
-          value={logbookData.subject}
+          value={subject}
           onChangeText={value => setSubject(value)}
         />
         <Text style={{color: 'black', marginBottom: 5}}>Activity Type</Text>
         <Picker
           style={{borderRadius: 10, backgroundColor: '#EBEBEB'}}
           ref={pickerRef}
-          selectedValue={
-            selectedSubject ? selectedSubject : logbookData.type_job_id
-          }
+          selectedValue={selectedSubject}
           onValueChange={(itemValue, itemIndex) =>
             //console.log(itemValue, itemIndex)
             setSelectedSubject(itemValue) & setSubjectType(itemIndex)
@@ -252,22 +252,22 @@ export default function UpdateActivity({route, navigation}) {
           style={{borderRadius: 10, backgroundColor: '#EBEBEB'}}
           ref={pickerRef}
           selectedValue={selectedStatus}
-          onValueChange={itemValue =>
-            setSelectedStatus(itemValue) & console.log(itemValue)
-          }>
+          onValueChange={itemValue => setSelectedStatus(itemValue)}>
           {Object.values(statusLog).map(value => {
             return <Picker.Item label={value} value={value} key={value} />;
           })}
         </Picker>
         <FormInput
-          editable={true}
+          editable={false}
           titleInput={'Detail Subject'}
-          value={logbookData.content}
+          value={detailSubject}
+          onChangeText={value => setDetailSubject(value)}
         />
         <FormInput
-          editable={true}
+          editable={false}
           titleInput={'Output Subject'}
-          value={logbookData.output}
+          value={output}
+          onChangeText={value => setOutput(value)}
         />
         <View
           style={{

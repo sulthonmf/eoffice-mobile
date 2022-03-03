@@ -48,7 +48,7 @@ export function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   HeaderTitle: {
     fontSize: 16,
-    fontWeight: '200',
+    fontWeight: '600',
     color: 'black',
   },
   HeaderUsername: {

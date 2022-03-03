@@ -14,6 +14,8 @@ target 'JtMobileApp' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'JtMobileAppTests' do
     inherit! :complete
     # Pods for testing
